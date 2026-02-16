@@ -16,6 +16,7 @@ find_package(Threads REQUIRED)
 find_package(Freetype REQUIRED)
 find_package(OpenAL REQUIRED)
 find_package(assimp REQUIRED)
+find_package(GLEW REQUIRED)
 
 # GLM is header-only - find it for include path
 find_package(glm QUIET)
@@ -95,6 +96,12 @@ set(UTILS_SOURCES
     src/utils/PerlinNoise.cpp
 )
 
+# STB implementations (image and audio loading)
+set(STB_SOURCES
+    src/stb_image_impl.cpp
+    src/stb_vorbis_impl.cpp
+)
+
 # Main source
 set(MAIN_SOURCE src/main.cpp)
 
@@ -108,6 +115,7 @@ set(ALL_SOURCES
     ${AUDIO_SOURCES}
     ${PHYSICS_SOURCES}
     ${UTILS_SOURCES}
+    ${STB_SOURCES}
     ${MAIN_SOURCE}
 )
 
@@ -120,6 +128,7 @@ target_link_libraries(${PROJECT_NAME}
     OpenGL::GL
     Threads::Threads
     glfw
+    GLEW::GLEW
     ${FREETYPE_LIBRARIES}
     OpenAL::OpenAL
     assimp::assimp

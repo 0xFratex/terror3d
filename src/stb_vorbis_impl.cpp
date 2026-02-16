@@ -1,8 +1,6 @@
-// stb_vorbis implementation - for OGG audio loading
-// Download full version from: https://raw.githubusercontent.com/nothings/stb/master/stb_vorbis.c
+// stb_vorbis implementation
+// This file provides the implementation (no STB_VORBIS_HEADER_ONLY)
+// The header-only mode is handled by stb_vorbis.h wrapper
 
-#define STB_VORBIS_HEADER_ONLY
-#include "stb_vorbis.h"
-
-// The full stb_vorbis.c should be downloaded from:
-// https://raw.githubusercontent.com/nothings/stb/master/stb_vorbis.c
+#undef STB_VORBIS_HEADER_ONLY
+#include "stb_vorbis.c"

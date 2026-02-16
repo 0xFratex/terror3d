@@ -1,25 +1,13 @@
-// stb_vorbis - OGG Vorbis audio decoder
-// Single header library from https://github.com/nothings/stb
+// stb_vorbis.h wrapper
+// stb_vorbis is distributed as a single .c file that acts as both header and implementation
+// Include the .c file here to get declarations
 
-#ifndef STB_VORBIS_H
-#define STB_VORBIS_H
+#ifndef STB_VORBIS_H_WRAPPER
+#define STB_VORBIS_H_WRAPPER
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+// Define this to get only declarations (header mode)
+// The implementation will be provided by stb_vorbis_impl.cpp
+#define STB_VORBIS_HEADER_ONLY
+#include "stb_vorbis.c"
 
-// Decode an entire OGG Vorbis file
-// Returns number of samples decoded, or negative on error
-int stb_vorbis_decode_filename(const char *filename, int *channels, int *sample_rate, short **output);
-
-// Decode from memory
-int stb_vorbis_decode_memory(const unsigned char *mem, int len, int *channels, int *sample_rate, short **output);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif // STB_VORBIS_H
-
-// Full implementation available at:
-// https://raw.githubusercontent.com/nothings/stb/master/stb_vorbis.c
+#endif // STB_VORBIS_H_WRAPPER
