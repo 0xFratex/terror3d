@@ -121,16 +121,18 @@ elseif(APPLE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -framework Cocoa -framework IOKit")
 endif()
 
-# Copy shaders to build directory
-file(COPY ${CMAKE_SOURCE_DIR}/shaders DESTINATION ${CMAKE_BINARY_DIR}/bin)
-
-# Create assets directories if they don't exist
+# Create output directories
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin/assets/textures)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin/assets/models)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin/assets/sounds/ambient)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin/assets/sounds/sfx)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin/assets/sounds/music)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin/assets/fonts)
+
+# Copy shaders to build directory
+if(EXISTS ${CMAKE_SOURCE_DIR}/shaders)
+    file(COPY ${CMAKE_SOURCE_DIR}/shaders DESTINATION ${CMAKE_BINARY_DIR}/bin)
+endif()
 
 # Copy assets if they exist
 if(EXISTS ${CMAKE_SOURCE_DIR}/assets)
