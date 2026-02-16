@@ -17,10 +17,18 @@ find_package(Freetype REQUIRED)
 find_package(OpenAL REQUIRED)
 find_package(assimp REQUIRED)
 
+# GLM is header-only - find it for include path
+find_package(glm QUIET)
+
 # Include directories
 include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${CMAKE_SOURCE_DIR}/src)
 include_directories(${FREETYPE_INCLUDE_DIRS})
+
+# If GLM was found, add its include directory
+if(TARGET glm::glm)
+    message(STATUS "GLM found via CMake config")
+endif()
 
 # Source files
 set(CORE_SOURCES
@@ -107,15 +115,20 @@ set(ALL_SOURCES
 add_executable(${PROJECT_NAME} ${ALL_SOURCES})
 
 # Link libraries
+# Note: GLM is header-only, no linking required
 target_link_libraries(${PROJECT_NAME}
     OpenGL::GL
     Threads::Threads
     glfw
-    glm
     ${FREETYPE_LIBRARIES}
     OpenAL::OpenAL
     assimp::assimp
 )
+
+# If GLM provides a CMake target, link it (handles include path)
+if(TARGET glm::glm)
+    target_link_libraries(${PROJECT_NAME} glm::glm)
+endif()
 
 # Platform-specific settings
 if(WIN32)
