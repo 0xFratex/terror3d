@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <random>
 #include <cmath>
+#include <iomanip>
 
 namespace ExperimentRedbear {
 namespace Utils {

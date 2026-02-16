@@ -1,4 +1,5 @@
 #include "ui/Panel.h"
+#include <algorithm>
 
 namespace ExperimentRedbear {
 
