@@ -4,6 +4,7 @@
 #include "core/Config.h"
 #include <GL/glew.h>
 #include <sstream>
+#include <algorithm>
 
 namespace ExperimentRedbear {
 

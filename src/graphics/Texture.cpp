@@ -1,6 +1,6 @@
 #include "graphics/Texture.h"
 #include "core/Logger.h"
-#include <stb_image.h>
+#include "stb_image.h"
 
 namespace ExperimentRedbear {
 

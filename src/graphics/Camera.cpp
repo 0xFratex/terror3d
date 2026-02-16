@@ -21,10 +21,10 @@ void Camera::setPerspective(float fov, float aspectRatio, float nearPlane, float
 
 void Camera::setOrthographic(float left, float right, float bottom, float top, float nearPlane, float farPlane) {
     m_mode = CameraMode::ORTHOGRAPHIC;
-    m_left = left;
-    m_right = right;
-    m_bottom = bottom;
-    m_top = top;
+    m_orthoLeft = left;
+    m_orthoRight = right;
+    m_orthoBottom = bottom;
+    m_orthoTop = top;
     m_nearPlane = nearPlane;
     m_farPlane = farPlane;
     m_projectionMatrix = glm::ortho(left, right, bottom, top, nearPlane, farPlane);

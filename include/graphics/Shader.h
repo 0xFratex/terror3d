@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <GL/glew.h>

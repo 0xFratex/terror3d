@@ -4,6 +4,8 @@
 #include <unordered_map>
 #include <glm/glm.hpp>
 #include <GL/glew.h>
+
+// FreeType includes
 #include <ft2build.h>
 #include FT_FREETYPE_H
 

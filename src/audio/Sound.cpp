@@ -1,7 +1,7 @@
 #include "audio/Sound.h"
 #include "core/Logger.h"
 #include <AL/al.h>
-#include <stb_vorbis.c>
+#include "stb_vorbis.h"
 #include <cstring>
 
 namespace ExperimentRedbear {

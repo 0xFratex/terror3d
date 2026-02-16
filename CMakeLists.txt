@@ -13,10 +13,14 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 # Find required packages
 find_package(OpenGL REQUIRED)
 find_package(Threads REQUIRED)
+find_package(Freetype REQUIRED)
+find_package(OpenAL REQUIRED)
+find_package(assimp REQUIRED)
 
 # Include directories
 include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${FREETYPE_INCLUDE_DIRS})
 
 # Source files
 set(CORE_SOURCES
@@ -107,9 +111,9 @@ target_link_libraries(${PROJECT_NAME}
     Threads::Threads
     glfw
     glm
-    freetype
-    openal
-    assimp
+    ${FREETYPE_LIBRARIES}
+    OpenAL::OpenAL
+    assimp::assimp
 )
 
 # Platform-specific settings

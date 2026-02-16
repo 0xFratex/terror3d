@@ -71,10 +71,10 @@ private:
     float m_farPlane = 1000.0f;
 
     // Orthographic params
-    float m_left = -1.0f;
-    float m_right = 1.0f;
-    float m_bottom = -1.0f;
-    float m_top = 1.0f;
+    float m_orthoLeft = -1.0f;
+    float m_orthoRight = 1.0f;
+    float m_orthoBottom = -1.0f;
+    float m_orthoTop = 1.0f;
 
     glm::mat4 m_viewMatrix = glm::mat4(1.0f);
     glm::mat4 m_projectionMatrix = glm::mat4(1.0f);

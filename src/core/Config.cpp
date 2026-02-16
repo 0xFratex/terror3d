@@ -2,6 +2,7 @@
 #include "core/Logger.h"
 #include <fstream>
 #include <sstream>
+#include <vector>
 
 namespace ExperimentRedbear {
 
