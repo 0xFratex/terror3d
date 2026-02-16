@@ -172,7 +172,7 @@ void Menu::renderMainMenu() {
     glm::vec2 titleSize = textRenderer.measureText(title, "title", 2.0f);
     textRenderer.renderText(
         title,
-        glm::vec2((width - titleSize.x) / 2.0f, height * 0.3f),
+        glm::vec2((width - titleSize.x) / 2.0f, height * 0.7f),
         "title", 2.0f, titleColor, true
     );
 
@@ -181,7 +181,7 @@ void Menu::renderMainMenu() {
     glm::vec2 subSize = textRenderer.measureText(subtitle, "main", 1.0f);
     textRenderer.renderText(
         subtitle,
-        glm::vec2((width - subSize.x) / 2.0f, height * 0.35f),
+        glm::vec2((width - subSize.x) / 2.0f, height * 0.65f),
         "main", 1.0f, m_normalColor, true
     );
 
@@ -201,8 +201,8 @@ void Menu::renderMainMenu() {
 
     // Version info
     textRenderer.renderText(
-        "Version 1.0.0",
-        glm::vec2(10.0f, height - 30.0f),
+        "Version 1.0.0 - Press W/S to navigate, Enter to select",
+        glm::vec2(10.0f, 30.0f),
         "main", 0.8f, m_disabledColor
     );
 }

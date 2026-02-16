@@ -26,12 +26,12 @@ struct RenderSettings {
     bool faceCulling = true;
     bool depthTest = true;
     bool blend = true;
-    glm::vec4 clearColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+    glm::vec4 clearColor = glm::vec4(0.02f, 0.02f, 0.03f, 1.0f);  // Very dark blue
     bool fog = true;
     glm::vec3 fogColor = glm::vec3(0.1f, 0.1f, 0.12f);
     float fogNear = 10.0f;
     float fogFar = 100.0f;
-    bool bloom = true;
+    bool bloom = false;  // Disabled by default
     float bloomIntensity = 0.5f;
     bool ssao = true;
     float ssaoRadius = 0.5f;

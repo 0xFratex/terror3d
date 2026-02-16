@@ -139,10 +139,12 @@ void TextRenderer::renderText(const std::string& text, const glm::vec2& position
                                const std::string& font, float scale, 
                                const glm::vec3& color, bool centered) {
     if (m_fonts.find(font) == m_fonts.end()) {
+        LOG_WARNING("Font not found: " + font);
         return;
     }
     
     if (!m_textShader) {
+        LOG_ERROR("Text shader not initialized");
         return;
     }
 
@@ -163,6 +165,7 @@ void TextRenderer::renderText(const std::string& text, const glm::vec2& position
                                        0.0f, static_cast<float>(m_screenHeight));
     m_textShader->setMat4("projection", projection);
     m_textShader->setVec3("textColor", color);
+    m_textShader->setInt("text", 0);  // Texture unit 0
 
     // Enable blending
     glEnable(GL_BLEND);
