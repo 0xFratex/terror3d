@@ -71,6 +71,9 @@ bool Game::initialize() {
         LOG_FATAL("Failed to initialize text renderer");
         return false;
     }
+    
+    // Set initial screen size for text rendering
+    textRenderer.setScreenSize(m_window.getWidth(), m_window.getHeight());
 
     // Load fonts
     textRenderer.loadFont("main", "assets/fonts/arial.ttf", 24);
@@ -227,9 +230,11 @@ void Game::handleKeyInput(int key, int action) {
 void Game::handleResize(int width, int height) {
     auto& renderer = Renderer::getInstance();
     auto& uiManager = UIManager::getInstance();
+    auto& textRenderer = TextRenderer::getInstance();
 
     renderer.initialize(width, height);
     uiManager.resize(width, height);
+    textRenderer.setScreenSize(width, height);
 
     m_player.getCamera().setAspectRatio(static_cast<float>(width) / height);
 }

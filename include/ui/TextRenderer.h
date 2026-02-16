@@ -4,12 +4,15 @@
 #include <unordered_map>
 #include <glm/glm.hpp>
 #include <GL/glew.h>
+#include <memory>
 
 // FreeType includes
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
 namespace ExperimentRedbear {
+
+class ShaderProgram;
 
 struct Character {
     GLuint textureID;
@@ -44,6 +47,11 @@ public:
     glm::vec2 measureText(const std::string& text, const std::string& font, float scale);
 
     float getLineHeight(const std::string& font, float scale);
+    
+    void setScreenSize(int width, int height) {
+        m_screenWidth = width;
+        m_screenHeight = height;
+    }
 
 private:
     TextRenderer() = default;
@@ -53,6 +61,9 @@ private:
 
     FT_Library m_ftLibrary;
     std::unordered_map<std::string, Font> m_fonts;
+    std::shared_ptr<ShaderProgram> m_textShader;
+    int m_screenWidth = 1920;
+    int m_screenHeight = 1080;
     bool m_initialized = false;
 };
 

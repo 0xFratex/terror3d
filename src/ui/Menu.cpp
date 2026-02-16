@@ -14,6 +14,8 @@ Menu::Menu() {
 Menu::~Menu() = default;
 
 bool Menu::initialize() {
+    // Initialize menu items for the current state
+    setState(MenuState::MAIN_MENU);
     LOG_INFO("Menu system initialized");
     return true;
 }

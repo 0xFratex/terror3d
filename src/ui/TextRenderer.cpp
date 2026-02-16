@@ -1,6 +1,8 @@
 #include "ui/TextRenderer.h"
+#include "graphics/Shader.h"
 #include "core/Logger.h"
 #include <GL/glew.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace ExperimentRedbear {
 
@@ -15,6 +17,30 @@ bool TextRenderer::initialize() {
         return false;
     }
 
+    // Load text shader
+    m_textShader = std::make_shared<ShaderProgram>();
+    
+    auto vertShader = std::make_shared<Shader>();
+    auto fragShader = std::make_shared<Shader>();
+    
+    if (!vertShader->loadFromFile("shaders/text.vert", ShaderType::VERTEX)) {
+        LOG_ERROR("Failed to load text vertex shader");
+        return false;
+    }
+    
+    if (!fragShader->loadFromFile("shaders/text.frag", ShaderType::FRAGMENT)) {
+        LOG_ERROR("Failed to load text fragment shader");
+        return false;
+    }
+    
+    m_textShader->attachShader(*vertShader);
+    m_textShader->attachShader(*fragShader);
+    
+    if (!m_textShader->link()) {
+        LOG_ERROR("Failed to link text shader program");
+        return false;
+    }
+
     m_initialized = true;
     LOG_INFO("Text renderer initialized");
     return true;
@@ -26,6 +52,8 @@ void TextRenderer::shutdown() {
         glDeleteBuffers(1, &pair.second.vbo);
     }
     m_fonts.clear();
+    
+    m_textShader.reset();
 
     if (m_ftLibrary) {
         FT_Done_FreeType(m_ftLibrary);
@@ -113,6 +141,10 @@ void TextRenderer::renderText(const std::string& text, const glm::vec2& position
     if (m_fonts.find(font) == m_fonts.end()) {
         return;
     }
+    
+    if (!m_textShader) {
+        return;
+    }
 
     Font& f = m_fonts[font];
 
@@ -123,12 +155,19 @@ void TextRenderer::renderText(const std::string& text, const glm::vec2& position
         pos.x -= size.x / 2.0f;
     }
 
+    // Bind shader
+    m_textShader->bind();
+    
+    // Set projection matrix (orthographic for 2D text)
+    glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(m_screenWidth), 
+                                       0.0f, static_cast<float>(m_screenHeight));
+    m_textShader->setMat4("projection", projection);
+    m_textShader->setVec3("textColor", color);
+
     // Enable blending
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    // Use text shader (would bind a text shader here)
-    // shader.setVec3("textColor", color);
+    glDisable(GL_DEPTH_TEST);
 
     glActiveTexture(GL_TEXTURE0);
     glBindVertexArray(f.vao);
@@ -140,20 +179,20 @@ void TextRenderer::renderText(const std::string& text, const glm::vec2& position
         Character ch = f.characters[c];
 
         float xpos = pos.x + ch.bearing.x * scale;
-        float ypos = pos.y + (f.characters['H'].bearing.y - ch.bearing.y) * scale;
+        float ypos = pos.y + (ch.bearing.y - ch.size.y) * scale;
 
         float w = ch.size.x * scale;
         float h = ch.size.y * scale;
 
         // Update VBO for each character
         float vertices[6][4] = {
-            { xpos,     ypos + h,   0.0f, 1.0f },
-            { xpos + w, ypos,       1.0f, 0.0f },
-            { xpos,     ypos,       0.0f, 0.0f },
+            { xpos,     ypos + h,   0.0f, 0.0f },
+            { xpos + w, ypos,       1.0f, 1.0f },
+            { xpos,     ypos,       0.0f, 1.0f },
 
-            { xpos,     ypos + h,   0.0f, 1.0f },
-            { xpos + w, ypos + h,   1.0f, 1.0f },
-            { xpos + w, ypos,       1.0f, 0.0f }
+            { xpos,     ypos + h,   0.0f, 0.0f },
+            { xpos + w, ypos + h,   1.0f, 0.0f },
+            { xpos + w, ypos,       1.0f, 1.0f }
         };
 
         // Render glyph texture over quad
@@ -173,7 +212,10 @@ void TextRenderer::renderText(const std::string& text, const glm::vec2& position
 
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
+    glEnable(GL_DEPTH_TEST);
     glDisable(GL_BLEND);
+    
+    m_textShader->unbind();
 }
 
 glm::vec2 TextRenderer::measureText(const std::string& text, const std::string& font, float scale) {
