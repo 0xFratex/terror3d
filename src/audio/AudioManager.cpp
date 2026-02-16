@@ -1,4 +1,5 @@
 #include "audio/AudioManager.h"
+#include "audio/Sound.h"
 #include "core/Logger.h"
 #include <AL/al.h>
 #include <AL/alc.h>

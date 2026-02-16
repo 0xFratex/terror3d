@@ -1,5 +1,7 @@
 #include "ui/UIManager.h"
+#include "ui/UIElement.h"
 #include "core/Logger.h"
+#include <algorithm>
 
 namespace ExperimentRedbear {
 

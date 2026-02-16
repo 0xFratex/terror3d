@@ -63,6 +63,7 @@ set(GAME_SOURCES
 
 set(UI_SOURCES
     src/ui/UIManager.cpp
+    src/ui/UIElement.cpp
     src/ui/Menu.cpp
     src/ui/HUD.cpp
     src/ui/TextRenderer.cpp
