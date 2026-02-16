@@ -1,6 +1,7 @@
 #include "game/Flashlight.h"
 #include <cmath>
 #include <cstdlib>
+#include <algorithm>
 
 namespace ExperimentRedbear {
 
@@ -38,7 +39,7 @@ void Flashlight::update(float deltaTime, const glm::vec3& position, const glm::v
 
     // Adjust intensity based on battery level
     float batteryFactor = m_batteryLevel / m_maxBattery;
-    m_light.intensity = m_baseIntensity * batteryFactor * (1.0f - m_flickerIntensity * 0.5f);
+    m_light.intensity = m_baseIntensity * batteryFactor;
 }
 
 void Flashlight::updateBattery(float deltaTime) {

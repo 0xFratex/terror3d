@@ -2,6 +2,7 @@
 #include "graphics/Texture.h"
 #include "core/Logger.h"
 #include <GL/glew.h>
+#include <vector>
 
 namespace ExperimentRedbear {
 

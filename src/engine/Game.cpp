@@ -3,6 +3,7 @@
 #include "graphics/Renderer.h"
 #include "audio/AudioManager.h"
 #include "ui/TextRenderer.h"
+#include "ui/UIManager.h"
 #include "game/HouseGenerator.h"
 #include "game/ForestGenerator.h"
 #include "core/Logger.h"
@@ -415,7 +416,7 @@ void Game::newGame() {
     m_player.setPosition(worldSettings.playerStart);
 
     // Initialize renderer lighting
-    renderer.setAmbientLight(glm::vec3(0.02f, 0.02f, 0.03f), 1.0f);
+    Renderer::getInstance().setAmbientLight(glm::vec3(0.02f, 0.02f, 0.03f), 1.0f);
 
     // Show objective
     m_hud.showObjective("Find a way out of the house");

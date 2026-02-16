@@ -73,6 +73,10 @@ private:
     void render();
     void renderUI();
 
+    void handleKeyInput(int key, int action);
+    void handleResize(int width, int height);
+    void updatePlaying(float deltaTime);
+
     void loadAssets();
     void initializeWorld();
 
